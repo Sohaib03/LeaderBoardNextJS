@@ -61,9 +61,124 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import Activity from "./Activity";
+import UserRow from "./UserRow";
+
+const userList = [
+	{
+		name: "Sohaib",
+		username: "Bruteforcer101",
+		status: "Active",
+		rating: 2101,
+		maxRating: 2101,
+		rank: "Master",
+		activity: [
+			true,
+			false,
+			true,
+			true,
+			false,
+			false,
+			true,
+			false,
+			true,
+			false,
+		],
+	},
+	{
+		name: "Aisha",
+		username: "CodeMaster",
+		status: "Inactive",
+		rating: 1987,
+		maxRating: 1987,
+		rank: "Expert",
+		activity: [
+			false,
+			true,
+			true,
+			false,
+			true,
+			false,
+			false,
+			true,
+			true,
+			false,
+		],
+	},
+	{
+		name: "Zain",
+		username: "TheDebugger",
+		status: "Active",
+		rating: 2050,
+		maxRating: 2050,
+		rank: "Master",
+		activity: [
+			true,
+			true,
+			true,
+			true,
+			false,
+			false,
+			true,
+			false,
+			true,
+			true,
+		],
+	},
+	{
+		name: "Sara",
+		username: "QuickSortQueen",
+		status: "Active",
+		rating: 1900,
+		maxRating: 1900,
+		rank: "Advanced",
+		activity: [
+			true,
+			false,
+			false,
+			true,
+			true,
+			false,
+			true,
+			true,
+			false,
+			false,
+		],
+	},
+	{
+		name: "Omar",
+		username: "BinarySearchPro",
+		status: "Active",
+		rating: 2250,
+		maxRating: 2250,
+		rank: "Grandmaster",
+		activity: [
+			true,
+			true,
+			true,
+			true,
+			true,
+			true,
+			false,
+			false,
+			true,
+			true,
+		],
+	},
+];
 
 export default function RankingTable() {
-	const boolArray = [true, false, true, true, false, false, true, false, true, false];
+	const boolArray = [
+		true,
+		false,
+		true,
+		true,
+		false,
+		false,
+		true,
+		false,
+		true,
+		false,
+	];
 	return (
 		<main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
 			<Tabs defaultValue="all">
@@ -142,31 +257,13 @@ export default function RankingTable() {
 										<TableHead>Rating</TableHead>
 										<TableHead>Max Rating</TableHead>
 										<TableHead>Rank</TableHead>
-										<TableHead>Last 5 contest</TableHead>
+										<TableHead>Last 10 contest</TableHead>
 									</TableRow>
 								</TableHeader>
 								<TableBody>
-									<TableRow>
-										<TableCell className="font-medium"> Sohaib </TableCell>
-										<TableCell className="font-medium"> Bruteforcer101 </TableCell>
-										<TableCell>
-											<Badge variant="outline">
-												Active
-											</Badge>
-										</TableCell>
-										<TableCell className="hidden md:table-cell">
-											2101
-										</TableCell>
-										<TableCell className="hidden md:table-cell">
-											2101
-										</TableCell>
-										<TableCell className="hidden md:table-cell">
-											Master
-										</TableCell>
-										<TableCell>
-											<Activity boolArray={boolArray} />
-										</TableCell>
-									</TableRow>
+									{userList.map((user, index) => (
+										<UserRow userData={user} />
+									))}
 								</TableBody>
 							</Table>
 						</CardContent>

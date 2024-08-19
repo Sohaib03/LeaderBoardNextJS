@@ -10,7 +10,7 @@ export default function Activity({ boolArray }) {
             width: '8px',
             height: '8px',
             margin: '1px',
-            backgroundColor: value ? 'green' : 'red',
+            backgroundColor: value ? '#48c9b0' : '#FF5733 ',
           }}
         ></div>
       ))}
