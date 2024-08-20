@@ -62,123 +62,27 @@ import {
 } from "@/components/ui/tooltip";
 import Activity from "./Activity";
 import UserRow from "./UserRow";
+import { getContestList, getLeaderboard } from "./FetchLeaderboard";
 
-const userList = [
-	{
-		name: "Sohaib",
-		username: "Bruteforcer101",
-		status: "Active",
-		rating: 2101,
-		maxRating: 2101,
-		rank: "Master",
-		activity: [
-			true,
-			false,
-			true,
-			true,
-			false,
-			false,
-			true,
-			false,
-			true,
-			false,
-		],
-	},
-	{
-		name: "Aisha",
-		username: "CodeMaster",
-		status: "Inactive",
-		rating: 1987,
-		maxRating: 1987,
-		rank: "Expert",
-		activity: [
-			false,
-			true,
-			true,
-			false,
-			true,
-			false,
-			false,
-			true,
-			true,
-			false,
-		],
-	},
-	{
-		name: "Zain",
-		username: "TheDebugger",
-		status: "Active",
-		rating: 2050,
-		maxRating: 2050,
-		rank: "Master",
-		activity: [
-			true,
-			true,
-			true,
-			true,
-			false,
-			false,
-			true,
-			false,
-			true,
-			true,
-		],
-	},
-	{
-		name: "Sara",
-		username: "QuickSortQueen",
-		status: "Active",
-		rating: 1900,
-		maxRating: 1900,
-		rank: "Advanced",
-		activity: [
-			true,
-			false,
-			false,
-			true,
-			true,
-			false,
-			true,
-			true,
-			false,
-			false,
-		],
-	},
-	{
-		name: "Omar",
-		username: "BinarySearchPro",
-		status: "Active",
-		rating: 2250,
-		maxRating: 2250,
-		rank: "Grandmaster",
-		activity: [
-			true,
-			true,
-			true,
-			true,
-			true,
-			true,
-			false,
-			false,
-			true,
-			true,
-		],
-	},
-];
 
-export default function RankingTable() {
-	const boolArray = [
-		true,
-		false,
-		true,
-		true,
-		false,
-		false,
-		true,
-		false,
-		true,
-		false,
-	];
+export default async function RankingTable() {
+	const userList = await getLeaderboard()
+	const contestList = await getContestList()
+
+	userList.forEach(user => {
+		user.position = []
+		user.contest_rank.forEach((rank, idx) => {
+            if (rank > 0) {  // Check if the rank is positive
+                const contestName = contestList[idx]?.name || 'Unknown Contest';
+                user.position.push([contestName, rank]);
+            }
+        });
+	});
+
+	// console.l
+
+	const active_users = userList.filter(user => user.status === "Active");
+	const inactive_users = userList.filter(user => user.status === "Inactive");
 	return (
 		<main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
 			<Tabs defaultValue="all">
@@ -240,10 +144,10 @@ export default function RankingTable() {
 							<CardTitle>Codeforces</CardTitle>
 							<CardDescription>
 								<Badge className="mr-2">
-									Total Users : 100
+									Total Users : {active_users.length + inactive_users.length}
 								</Badge>
 								<Badge className="mr-2">
-									Active Users : 50
+									Active Users : {active_users.length}
 								</Badge>
 							</CardDescription>
 						</CardHeader>
@@ -262,7 +166,7 @@ export default function RankingTable() {
 								</TableHeader>
 								<TableBody>
 									{userList.map((user, index) => (
-										<UserRow userData={user} />
+										<UserRow userData={user} key={index}/>
 									))}
 								</TableBody>
 							</Table>
