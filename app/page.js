@@ -1,10 +1,14 @@
-import { LoginForm } from "@/components/auth/LoginForm";
-import Image from "next/image";
+"use client";
+
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function Home() {
-  return (
-    <div className="flex items-center justify-center min-h-screen">
-      <LoginForm />
-    </div>
-  );
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push('/login'); // Redirect to login page by default
+  }, [router]);
+
+  return null; // or a loading spinner
 }
