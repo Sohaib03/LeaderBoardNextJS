@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link'; // Import Link from next/link
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -23,24 +24,21 @@ export function LoginForm() {
     e.preventDefault();
 
     try {
-
-      let response = await fetch('http://127.0.0.1:8787/login', {
+      let response = await fetch('http://127.0.0.1:8000/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, password }),
-      }).then((response) => {
-        return response.json();
-      })
+      }).then((response) => response.json());
+
       console.log("Response ", response);
-      const data = response;
-      const token = data.token; // Assuming the token is returned in the response
+      const token = response.token; // Assuming the token is returned in the response
 
       console.log("Token ", token);
-      localStorage.setItem("token", token)
-      localStorage.setItem("username", data.username)
-      localStorage.setItem("userid", data.userid)
+      localStorage.setItem("token", token);
+      localStorage.setItem("username", response.username);
+      localStorage.setItem("userid", response.userid);
       router.push('/home');
     } catch (error) {
       console.error('Error:', error);
@@ -80,10 +78,18 @@ export function LoginForm() {
             />
           </div>
         </CardContent>
-        <CardFooter>
+        <CardFooter className="flex flex-col gap-2">
           <Button type="submit" className="w-full">
             Sign in
           </Button>
+          <div className="text-center">
+            Not a user?{' '}
+            <Link href="/register" passHref>
+              <span className="text-blue-600 hover:text-blue-700 font-semibold cursor-pointer">
+                Sign up
+              </span>
+            </Link>
+          </div>
         </CardFooter>
       </form>
     </Card>
