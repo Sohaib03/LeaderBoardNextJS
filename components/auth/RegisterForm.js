@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { rootPath } from '../apiPath';
 
 export function RegisterForm() {
   const [handle, setHandle] = useState('');
@@ -26,7 +27,7 @@ export function RegisterForm() {
     e.preventDefault();
 
     try {
-      let response = await fetch('http://127.0.0.1:8000/auth/register', {
+      let response = await fetch(rootPath + '/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

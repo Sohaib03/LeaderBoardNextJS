@@ -1,5 +1,7 @@
+import { rootPath } from "../apiPath";
+
 export async function getLeaderboard() {
-    const apiPath = "http://127.0.0.1:8000/leaderboard";
+    const apiPath = rootPath+ "/leaderboard";
     try {
         const response = await fetch(apiPath, { next: { revalidate: 300 } });
         const data = await response.json();
@@ -32,7 +34,7 @@ export async function getLeaderboard() {
 }
 
 export async function getContestList() {
-    const apiPath = "http://127.0.0.1:8000/contest-info" 
+    const apiPath = rootPath + "/contest-info" 
     try {
         const response = await fetch(apiPath, { next: { revalidate: 300 } });
         const data = await response.json();

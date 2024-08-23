@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { rootPath } from '../apiPath';
 
 export function LoginForm() {
   const [username, setUsername] = useState('');
@@ -24,7 +25,7 @@ export function LoginForm() {
     e.preventDefault();
 
     try {
-      let response = await fetch('http://127.0.0.1:8000/auth/login', {
+      let response = await fetch(rootPath + '/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
