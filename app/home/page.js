@@ -1,25 +1,32 @@
-'use client';
+"use client";
 import { LoginForm } from "@/components/auth/LoginForm";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function HomePage() {
-  const token = localStorage.getItem("token");
-  const username = localStorage.getItem("username");
-  const userid = localStorage.getItem("userid");
+  const [token, setToken] = useState("");
+  const [username, setUsername] = useState("");
+  const [userid, setUserid] = useState("");
 
-  return (
-    <div className="flex items-center justify-center min-h-screen">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 448 512"
-        width="20"
-        height="20"
-      >
-        <path d="M144 144l0 48 160 0 0-48c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192l0-48C80 64.5 144.5 0 224 0s144 64.5 144 144l0 48 16 0c35.3 0 64 28.7 64 64l0 192c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 256c0-35.3 28.7-64 64-64l16 0z"/>
-      </svg>
-      <h1> You are logged in </h1>
-      <p>Username: {username}</p>
-      <p>UserID: {userid}</p>
-    </div>
-  );
+  useEffect (() => {
+    setToken(localStorage.getItem("token"));
+    setUsername(localStorage.getItem("username"));
+    setUserid(localStorage.getItem("userid"));
+  }, [])
+
+	return (
+		<div className="flex items-center justify-center min-h-screen">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 448 512"
+				width="20"
+				height="20"
+			>
+				<path d="M144 144l0 48 160 0 0-48c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192l0-48C80 64.5 144.5 0 224 0s144 64.5 144 144l0 48 16 0c35.3 0 64 28.7 64 64l0 192c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 256c0-35.3 28.7-64 64-64l16 0z" />
+			</svg>
+			<h1> You are logged in </h1>
+			<p>Username: {username}</p>
+			<p>UserID: {userid}</p>
+		</div>
+	);
 }
